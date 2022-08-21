@@ -9,10 +9,11 @@ is a mobile app that provides an animated form embedded in a ScrollView componen
 </p>
 
 ### To install the app, please follow the steps below:
-1- Clone this directory using this command in you favorite folder on your machine
+1- Clone this directory using this command in you favorite folder on your machine and change directory to `FormApp`
 ```
 cd Document/[YOUR_FAVORITE_FOLDER]
 git clone git@github.com:mostafabrazi/FormApp.git
+cd Document/[YOUR_FAVORITE_FOLDER]/FormApp
 ```
 
 2- Install node packages
