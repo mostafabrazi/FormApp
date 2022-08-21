@@ -8,15 +8,7 @@ import {colors, Input, spacing, Text, View} from 'ui';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {setFormState} from 'core';
 import Animated from 'react-native-reanimated';
-import {FormBodyProps} from 'screens/types';
-
-type FormData = {
-  firstName: string;
-  lastName: string;
-  phoneNumber: string;
-  email: string;
-  age: string;
-};
+import {FormBodyProps, FormData} from 'screens/types';
 
 export const Body = ({
   actions: {toStart, toEnd = () => null},
@@ -44,7 +36,7 @@ export const Body = ({
 
   // actions
   const resolveSubmit = useCallback(_resp => {
-    reset();
+    reset(); // empty our form 
     setFormState('resolved');
     setTimeout(toEnd, 0);
   }, []);
@@ -140,6 +132,7 @@ export const Body = ({
             },
           ]}
           onPress={handleSubmit(onSubmit)}>
+          {/* disable the submit button until we have a valid form */}
           <Text fontSize={18} color={!isDirty || !isValid ? 'text' : 'white'}>
             Submit
           </Text>

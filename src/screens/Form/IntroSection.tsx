@@ -1,10 +1,7 @@
 import React from 'react';
 import Animated, {useAnimatedStyle, withTiming} from 'react-native-reanimated';
+import {IntroSectionProps} from 'screens/types';
 import {Text, View} from 'ui';
-
-type IntroSectionProps = {
-  animationTrigger?: boolean;
-};
 
 export const IntroSection = ({animationTrigger}: IntroSectionProps) => {
   const opacityAnimatedStyle = useAnimatedStyle(() => {

@@ -5,10 +5,7 @@ import Animated, {
   withSpring,
   withTiming,
 } from 'react-native-reanimated';
-
-type HeaderProps = {
-  animationTrigger?: boolean;
-};
+import {HeaderProps} from 'screens/types';
 
 export const Header = ({animationTrigger}: HeaderProps) => {
   const textHeaderAnimatedStyle = useAnimatedStyle(() => {

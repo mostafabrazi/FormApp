@@ -7,27 +7,21 @@ import {SafeAreaView} from 'ui/SafeAreaView';
 
 const Stack = createStackNavigator();
 
-export const Root = () => {
-  return (
-    <Stack.Navigator
-      initialRouteName="Form"
-      screenOptions={{
-        cardOverlayEnabled: false,
-        headerShown: false,
-        gestureEnabled: false,
-        animationTypeForReplace: 'push',
-      }}>
-      <Stack.Screen name="Form" component={FormScreen} />
-    </Stack.Navigator>
-  );
-};
-
 export const RootNavigator = () => {
   const {colors} = useTheme();
   return (
     <NavigationContainer>
       <SafeAreaView edges={['top']} style={{backgroundColor: colors.black}} />
-      <Root />
+      <Stack.Navigator
+        initialRouteName="Form"
+        screenOptions={{
+          cardOverlayEnabled: false,
+          headerShown: false,
+          gestureEnabled: false,
+          animationTypeForReplace: 'push',
+        }}>
+        <Stack.Screen name="Form" component={FormScreen} />
+      </Stack.Navigator>
     </NavigationContainer>
   );
 };
