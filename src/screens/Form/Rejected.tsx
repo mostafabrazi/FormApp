@@ -19,7 +19,7 @@ export const Rejected = ({
       height={SCREEN_HEIGHT / 1.8}
       justifyContent="flex-end"
       alignItems="center">
-      <Text variant="header">Ooooopsy</Text>
+      <Text variant="header">Oooopsy</Text>
       <View my="ms">
         <RejectedIcon width={65} height={65} color={colors.warning} />
       </View>
