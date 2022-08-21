@@ -14,7 +14,7 @@ export const CustomAnimatedHeaderScrollView = React.forwardRef(
   ({children, ...props}: ScrollViewProps, ref) => (
     <KeyboardAvoidingView
       enabled
-      behavior="padding"
+      behavior={Platform.OS === 'ios' ? "padding" : "height"}
       style={styles.container}
       keyboardVerticalOffset={Platform.OS === 'ios' ? 56 : 0}>
       <ScrollView
