@@ -29,11 +29,11 @@ export const FormScreen = () => {
     },
     [],
   );
-  const scrollContainerToEnd = useCallback(() => {
-    scrollRef.current?.scrollToEnd();
-  }, []);
-  const scrollContainerToStart = useCallback(() => {
-    scrollRef.current?.scrollTo({x: 0, y: 0, animated: true});
+  const scrollActions = useMemo(() => {
+    return {
+      toStart: () => scrollRef.current?.scrollTo({x: 0, y: 0, animated: true}),
+      toEnd: () => scrollRef.current?.scrollToEnd(),
+    };
   }, []);
 
   return (
@@ -43,14 +43,12 @@ export const FormScreen = () => {
         ref={scrollRef}
         onScroll={onScroll}
         style={{backgroundColor: colors.black}}
-        scrollEnabled={!hideHeader}>
+        scrollEnabled={!hideHeader}
+        decelerationRate={0.5}>
         <IntroSection animationTrigger={showHeader} />
-        <Body
-          scrollToEnd={scrollContainerToEnd}
-          scrollToStart={scrollContainerToStart}
-        />
-        {formState === 'resolved' && <Resolved />}
-        {formState === 'rejected' && <Rejected />}
+        <Body actions={scrollActions} />
+        {formState === 'resolved' && <Resolved actions={scrollActions} />}
+        {formState === 'rejected' && <Rejected actions={scrollActions} />}
       </CustomAnimatedHeaderScrollView>
     </View>
   );

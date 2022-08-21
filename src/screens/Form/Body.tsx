@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useRef} from 'react';
+import React, {useCallback, useRef} from 'react';
 import * as yup from 'yup';
 import {useForm} from 'react-hook-form';
 import {EMAIL_REGEX, PHONE_REGEX} from 'utils';
@@ -6,8 +6,9 @@ import {StyleSheet, TextInput} from 'react-native';
 import {yupResolver} from '@hookform/resolvers/yup';
 import {colors, Input, spacing, Text, View} from 'ui';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-import {setFormState, useFormSubmit} from 'core';
+import {setFormState} from 'core';
 import Animated from 'react-native-reanimated';
+import {FormBodyProps} from 'screens/types';
 
 type FormData = {
   firstName: string;
@@ -17,21 +18,17 @@ type FormData = {
   age: string;
 };
 
-type BodyProps = {
-  scrollToEnd: () => void;
-  scrollToStart: () => void;
-};
-
-export const Body = ({scrollToEnd, scrollToStart}: BodyProps) => {
+export const Body = ({
+  actions: {toStart, toEnd = () => null},
+}: FormBodyProps) => {
   const ageRef = useRef<TextInput>(null);
   const emailRef = useRef<TextInput>(null);
   const lastNameRef = useRef<TextInput>(null);
   const phoneNumberRef = useRef<TextInput>(null);
-  const formState = useFormSubmit(state => state.formState);
   const {
     control,
     handleSubmit,
-    formState: {errors, isDirty, isValid, isSubmitted, isSubmitting},
+    formState: {errors, isDirty, isValid},
     reset,
   } = useForm({
     mode: 'onChange',
@@ -49,12 +46,12 @@ export const Body = ({scrollToEnd, scrollToStart}: BodyProps) => {
   const resolveSubmit = useCallback(_resp => {
     reset();
     setFormState('resolved');
-    setTimeout(scrollToEnd, 0); 
+    setTimeout(toEnd, 0);
   }, []);
   const rejectSubmit = useCallback(_err => {
     reset();
     setFormState('rejected');
-    setTimeout(scrollToEnd, 0); 
+    setTimeout(toEnd, 0);
   }, []);
   const onSubmit = useCallback((_data: FormData) => {
     // we are sure data is valid
@@ -153,7 +150,7 @@ export const Body = ({scrollToEnd, scrollToStart}: BodyProps) => {
 };
 
 const styles = StyleSheet.create({
-  container: {padding: 16, margin: 16},
+  container: {padding: 20},
   button: {
     marginTop: 32,
     padding: spacing.m,

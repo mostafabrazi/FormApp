@@ -8,8 +8,7 @@ import {
   StyleSheet,
 } from 'react-native';
 import {View} from 'ui';
-
-const SCREEN_HEIGHT = Dimensions.get('screen').height;
+import {SCREEN_HEIGHT} from 'utils/dimensions';
 
 export const CustomAnimatedHeaderScrollView = React.forwardRef(
   ({children, ...props}: ScrollViewProps, ref) => (
@@ -33,7 +32,7 @@ export const CustomAnimatedHeaderScrollView = React.forwardRef(
               that we have a scrolling to another view so SCREEN_HEIGHT / 2 
               for this view and the other half will be taken by the resolve or reject screen
         */}
-        <View height={SCREEN_HEIGHT / 2} />
+        <View height={SCREEN_HEIGHT / 2.5} />
       </ScrollView>
     </KeyboardAvoidingView>
   ),

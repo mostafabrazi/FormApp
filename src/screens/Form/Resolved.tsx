@@ -1,16 +1,45 @@
-import React from 'react';
-import {Dimensions} from 'react-native';
-import {Text, View} from 'ui';
+import React, {useCallback} from 'react';
+import {setFormState} from 'core';
+import {FormBodyProps} from 'screens/types';
+import {Text, View, Resolved as ResolvedIcon, useTheme, Button} from 'ui';
+import {SCREEN_HEIGHT, SCREEN_WIDTH} from 'utils/dimensions';
 
-const SCREEN_HEIGHT = Dimensions.get('screen').height;
+export const Resolved = ({
+  actions: {toStart = () => null, toEnd},
+}: FormBodyProps) => {
+  const {colors, spacing} = useTheme();
+  const startOver = useCallback(() => {
+    setFormState('not_submitted');
+    setTimeout(toStart, 0)
+  }, []);
 
-export const Resolved = () => {
   return (
     <View
-      height={SCREEN_HEIGHT / 2}
+      p="l"
+      height={SCREEN_HEIGHT / 1.8}
       justifyContent="flex-end"
       alignItems="center">
-      <Text>resolved</Text>
+      <Text variant="header" mt="xl">Success</Text>
+      <View my="ms">
+        <ResolvedIcon width={65} height={65} color={colors.primary} />
+      </View>
+      <Text textAlign="center" color="text">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ut lectus
+        massa. Aliquam ut mi eget tellus aliquam viverra quis a augue. Nulla
+        augue tortor, fringilla non auctor in, egestas ac neque. Praesent a arcu
+        ex. Nunc lacinia ipsum ut lectus aliquet tincidunt. Curabitur tincidunt
+        felis nec hendrerit elementum. Mauris maximus sem nec leo aliquam, at
+        pharetra tellus dapibus. Vestibulum ut suscipit nulla, eget efficitur
+        turpis. Nunc placerat gravida tempus. ed ex elit, ultrices ac elementum
+        in, sollicitudin sit amet magna.
+      </Text>
+      <Button
+        width={SCREEN_WIDTH - 2 * spacing.l}
+        variant="white_transp"
+        label="Start over"
+        onPress={startOver}
+        marginTop="l"
+      />
     </View>
   );
 };
