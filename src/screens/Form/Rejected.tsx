@@ -4,14 +4,12 @@ import {FormBodyProps} from 'screens/types';
 import {Text, View, Rejected as RejectedIcon, useTheme, Button} from 'ui';
 import {SCREEN_HEIGHT, SCREEN_WIDTH} from 'utils/dimensions';
 
-export const Rejected = ({
-  actions: {toStart = () => null, toEnd},
-}: FormBodyProps) => {
+export const Rejected = ({actions: {toStart = () => null}}: FormBodyProps) => {
   const {colors, spacing} = useTheme();
   const startOver = useCallback(() => {
     setFormState('not_submitted');
     setTimeout(toStart, 0);
-  }, []);
+  }, [toStart]);
 
   return (
     <View

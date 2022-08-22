@@ -10,9 +10,7 @@ import {setFormState} from 'core';
 import Animated from 'react-native-reanimated';
 import {FormBodyProps, FormData} from 'screens/types';
 
-export const Body = ({
-  actions: {toStart, toEnd = () => null},
-}: FormBodyProps) => {
+export const Body = ({actions: {toEnd = () => null}}: FormBodyProps) => {
   const ageRef = useRef<TextInput>(null);
   const emailRef = useRef<TextInput>(null);
   const lastNameRef = useRef<TextInput>(null);
@@ -35,22 +33,31 @@ export const Body = ({
   });
 
   // actions
-  const resolveSubmit = useCallback(_resp => {
-    reset(); // empty our form 
-    setFormState('resolved');
-    setTimeout(toEnd, 0);
-  }, []);
-  const rejectSubmit = useCallback(_err => {
-    reset();
-    setFormState('rejected');
-    setTimeout(toEnd, 0);
-  }, []);
-  const onSubmit = useCallback((_data: FormData) => {
-    // we are sure data is valid
-    // time to create a promise that randomly resolve or reject
-    const promise = createSubmitPromise();
-    promise.then(resolveSubmit).catch(rejectSubmit);
-  }, []);
+  const resolveSubmit = useCallback(
+    _resp => {
+      reset(); // empty our form
+      setFormState('resolved');
+      setTimeout(toEnd, 0);
+    },
+    [reset, toEnd],
+  );
+  const rejectSubmit = useCallback(
+    _err => {
+      reset();
+      setFormState('rejected');
+      setTimeout(toEnd, 0);
+    },
+    [reset, toEnd],
+  );
+  const onSubmit = useCallback(
+    (_data: FormData) => {
+      // we are sure data is valid
+      // time to create a promise that randomly resolve or reject
+      const promise = createSubmitPromise();
+      promise.then(resolveSubmit).catch(rejectSubmit);
+    },
+    [rejectSubmit, resolveSubmit],
+  );
 
   return (
     <Animated.View style={[styles.container]}>

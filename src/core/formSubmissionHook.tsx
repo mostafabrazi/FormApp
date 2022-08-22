@@ -6,7 +6,7 @@ interface IFormSubmit {
   setFormState: (resolved: FormStateType) => void;
 }
 
-export const useFormSubmit = create<IFormSubmit>((set, get) => ({
+export const useFormSubmit = create<IFormSubmit>((set, _get) => ({
   formState: 'not_submitted',
   setFormState: (formState: FormStateType) => {
     set({formState});

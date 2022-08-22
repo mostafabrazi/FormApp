@@ -4,14 +4,12 @@ import {FormBodyProps} from 'screens/types';
 import {Text, View, Resolved as ResolvedIcon, useTheme, Button} from 'ui';
 import {SCREEN_HEIGHT, SCREEN_WIDTH} from 'utils/dimensions';
 
-export const Resolved = ({
-  actions: {toStart = () => null, toEnd},
-}: FormBodyProps) => {
+export const Resolved = ({actions: {toStart = () => null}}: FormBodyProps) => {
   const {colors, spacing} = useTheme();
   const startOver = useCallback(() => {
     setFormState('not_submitted');
-    setTimeout(toStart, 0)
-  }, []);
+    setTimeout(toStart, 0);
+  }, [toStart]);
 
   return (
     <View
@@ -19,7 +17,9 @@ export const Resolved = ({
       height={SCREEN_HEIGHT / 1.8}
       justifyContent="flex-end"
       alignItems="center">
-      <Text variant="header" mt="xl">Success</Text>
+      <Text variant="header" mt="xl">
+        Success
+      </Text>
       <View my="ms">
         <ResolvedIcon width={65} height={65} color={colors.primary} />
       </View>
